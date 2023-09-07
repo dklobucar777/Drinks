@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valentic d.o.o.</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+      .table th,
+      .table td {
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="row"><img src="Valentic_LOGO_sirovi.png" /></div>
+
+      <button id="addRow" class="btn btn-success">Dodajte Artikl</button>
+      <table class="table mt-3">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Naziv Artikla</th>
+            <th>1,0 l</th>
+            <th>#</th>
+            <th>0,7 l</th>
+            <th>#</th>
+            <th>Akcija</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>
+              <input
+                type="text"
+                class="form-control"
+                list="list-drinks"
+                id="input-datalist"
+              />
+            </td>
+            <td><input type="checkbox" class="form-check-input" /></td>
+            <td><input type="number" class="form-control" /></td>
+            <td><input type="checkbox" class="form-check-input" /></td>
+            <td><input type="number" class="form-control" /></td>
+            <td>
+              <button class="btn btn-primary editBtn">Uredi</button>
+              <button class="btn btn-danger deleteBtn">Obriši</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <datalist id="list-drinks">
+        <option>Jagermeister</option>
+        <option>Becherovka</option>
+        <option>Chivas Regal</option>
+        <option>Johnnie Walker</option>
+        <option>Pelinkovac</option>
+        <option>Šljivovica</option>
+        <option>Jack Daniels</option>
+      </datalist>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        let idCounter = 1;
+
+        // Add Row button click event
+        $("#addRow").click(function () {
+          idCounter++;
+          const newRow = `
+                    <tr>
+                        <td>${idCounter}</td>
+                        <td><input type="text" class="form-control" list="list-drinks"
+                id="input-datalist" /></td>
+                        <td><input type="checkbox" class="form-check-input" /></td>
+                        <td><input type="number" class="form-control" /></td>
+                        <td><input type="checkbox" class="form-check-input" /></td>
+                        <td><input type="number" class="form-control" /></td>
+                        <td>
+                            <button class="btn btn-primary editBtn">Uredi</button>
+                            <button class="btn btn-danger deleteBtn">Obriši</button>
+                        </td>
+                    </tr>`;
+          $("tbody").append(newRow);
+        });
+
+        // Edit button click event
+        $("table").on("click", ".editBtn", function () {
+          const row = $(this).closest("tr");
+          const inputs = row.find("input");
+          inputs.prop("disabled", !inputs.prop("disabled"));
+        });
+
+        // Delete button click event
+        $("table").on("click", ".deleteBtn", function () {
+          $(this).closest("tr").remove();
+        });
+      });
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        (e) => {
+          $("#input-datalist").autocomplete();
+        },
+        false
+      );
+    </script>
+  </body>
+</html>
